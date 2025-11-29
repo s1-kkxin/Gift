@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import { flushSync } from "react-dom";
 import { useAccount, useWriteContract, usePublicClient } from "wagmi";
 import { bytesToHex } from "viem";
 import { giftTokenConfig } from "@/lib/contracts";
@@ -24,29 +23,30 @@ export function GiftCard() {
 
   const { writeContractAsync } = useWriteContract();
 
-  const handleSend = async () => {
-    flushSync(() => setIsSending(true));
+  const handleSend = () => {
+    if (!instance || !publicClient || !address) {
+      toast.error("Please connect wallet and initialize FHE");
+      return;
+    }
+    if (!recipient || !recipient.startsWith("0x")) {
+      toast.error("Please enter a valid recipient address");
+      return;
+    }
+    if (!amount || parseFloat(amount) <= 0) {
+      toast.error("Please enter a valid amount");
+      return;
+    }
+    if (!unlockDate || !unlockTime) {
+      toast.error("Please set unlock date and time");
+      return;
+    }
+
+    setIsSending(true);
+    setTimeout(() => doSend(), 0);
+  };
+
+  const doSend = async () => {
     try {
-      if (!instance || !publicClient || !address) {
-        toast.error("Please connect wallet and initialize FHE");
-        setIsSending(false);
-        return;
-      }
-      if (!recipient || !recipient.startsWith("0x")) {
-        toast.error("Please enter a valid recipient address");
-        setIsSending(false);
-        return;
-      }
-      if (!amount || parseFloat(amount) <= 0) {
-        toast.error("Please enter a valid amount");
-        setIsSending(false);
-        return;
-      }
-      if (!unlockDate || !unlockTime) {
-        toast.error("Please set unlock date and time");
-        setIsSending(false);
-        return;
-      }
 
       // Calculate unlock timestamp
       const unlockDateTime = new Date(`${unlockDate}T${unlockTime}`);

@@ -36,7 +36,12 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
           },
           features: {
             analytics: false,
+            email: false,
+            socials: false,
           },
+          enableWalletConnect: true,
+          enableInjected: true,
+          enableCoinbase: false,
           themeMode: "dark",
           themeVariables: {
             "--w3m-accent": "#7c3aed",

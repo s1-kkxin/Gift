@@ -1,7 +1,7 @@
 import { cookieStorage, createStorage } from "wagmi";
 import { sepolia } from "viem/chains";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import type { AppKitNetwork } from "@reown/appkit-common";
+import type { AppKitNetwork } from "@reown/appkit/networks";
 
 export const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID || "";
 

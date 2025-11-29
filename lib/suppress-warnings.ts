@@ -1,4 +1,4 @@
-// 过滤第三方库的噪音警告
+// Filter noisy warnings from third-party libraries
 if (typeof window !== "undefined") {
   const originalError = console.error;
   const originalWarn = console.warn;

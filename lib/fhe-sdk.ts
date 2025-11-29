@@ -16,7 +16,7 @@ type EncryptedInputBuilder = {
 type FheInstance = {
   createEncryptedInput: (contractAddress: string, signerAddress: string) => EncryptedInputBuilder;
   publicDecrypt: (handles: string[]) => Promise<{
-    clearValues: Record<string, any>;
+    clearValues: Record<string, bigint | string | number>;
     abiEncodedClearValues: string;
     decryptionProof: string;
   }>;

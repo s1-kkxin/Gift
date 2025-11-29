@@ -74,7 +74,7 @@ export function FheProvider({ children }: PropsWithChildren) {
 
         // Log configuration for debugging (without exposing sensitive keys if any)
         console.log("[FHE] Creating instance with Chain ID:", SEPOLIA_CHAIN_ID);
-        console.log("[FHE] Relayer URL from config:", (sdk.SepoliaConfig as any)?.relayerUrl);
+        console.log("[FHE] Relayer URL from config:", (sdk.SepoliaConfig as Record<string, unknown>)?.relayerUrl);
 
         const config = {
           ...sdk.SepoliaConfig,

@@ -9,9 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@reown/appkit": "^1.6.8",
-    "@reown/appkit-common": "^1.6.8",
-    "@reown/appkit-adapter-wagmi": "^1.6.8",
+    "@reown/appkit": "1.6.8",
+    "@reown/appkit-common": "1.6.8",
+    "@reown/appkit-adapter-wagmi": "1.6.8",
     "@tanstack/react-query": "^5.62.8",
     "next": "15.3.3",
     "react": "19.2.0",

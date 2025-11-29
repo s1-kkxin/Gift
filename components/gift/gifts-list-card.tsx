@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useAccount, useReadContract, usePublicClient } from "wagmi";
 import { giftTokenConfig } from "@/lib/contracts";
 import { OpenGiftModal } from "./open-gift-modal";
-import { useMounted } from "@/hooks/use-mounted";
 
 type GiftInfo = {
   id: bigint;
@@ -15,7 +14,6 @@ type GiftInfo = {
 };
 
 export function GiftsListCard() {
-  const mounted = useMounted();
   const { address, isConnected } = useAccount();
   const [tab, setTab] = useState<"sent" | "received">("received");
   const [sentGifts, setSentGifts] = useState<GiftInfo[]>([]);
@@ -111,13 +109,11 @@ export function GiftsListCard() {
 
   const gifts = tab === "sent" ? sentGifts : receivedGifts;
 
-  if (!mounted || !isConnected) {
+  if (!isConnected) {
     return (
       <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 shadow-xl shadow-zinc-200/50">
         <h2 className="text-xl font-semibold text-zinc-800 mb-4">My Gifts</h2>
-        <p className="text-zinc-500 text-center py-8">
-          {!mounted ? "Loading..." : "Connect wallet to view gifts"}
-        </p>
+        <p className="text-zinc-500 text-center py-8">Connect wallet to view gifts</p>
       </div>
     );
   }

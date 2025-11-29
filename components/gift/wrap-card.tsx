@@ -7,10 +7,7 @@ import { parseEther, parseUnits, bytesToHex, parseEventLogs, encodeAbiParameters
 import { giftTokenConfig } from "@/lib/contracts";
 import { useToast } from "@/components/providers/toast-provider";
 import { useFhe } from "@/components/providers/fhe-provider";
-import { useMounted } from "@/hooks/use-mounted";
-
 export function WrapCard() {
-  const mounted = useMounted();
   const { address, isConnected } = useAccount();
   const [amount, setAmount] = useState("");
   const [mode, setMode] = useState<"wrap" | "unwrap">("wrap");
@@ -149,20 +146,6 @@ export function WrapCard() {
     }
   };
 
-  if (!mounted || !isConnected) {
-    return (
-      <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 h-[380px] flex flex-col shadow-xl shadow-zinc-200/50">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-700 rounded">Step 1</span>
-          <h2 className="text-xl font-semibold text-zinc-800">Wrap / Unwrap</h2>
-        </div>
-        <p className="text-zinc-500 text-center flex-1 flex items-center justify-center">
-          {!mounted ? "Loading..." : "Connect wallet to continue"}
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 flex flex-col h-[380px] shadow-xl shadow-zinc-200/50">
       <div className="flex items-center gap-3 mb-4">
@@ -230,7 +213,7 @@ export function WrapCard() {
         <div className="mt-auto space-y-3">
           <button
             onClick={mode === "wrap" ? handleWrap : handleUnwrap}
-            disabled={isPending || isConfirming || isUnwrapping || !amount}
+            disabled={!isConnected || isPending || isConfirming || isUnwrapping || !amount}
             className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 disabled:bg-zinc-300 disabled:text-zinc-500 disabled:cursor-not-allowed text-white font-medium transition-colors shadow-sm"
           >
             {mode === "wrap"

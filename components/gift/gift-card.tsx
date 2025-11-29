@@ -7,10 +7,8 @@ import { bytesToHex } from "viem";
 import { giftTokenConfig } from "@/lib/contracts";
 import { useToast } from "@/components/providers/toast-provider";
 import { useFhe } from "@/components/providers/fhe-provider";
-import { useMounted } from "@/hooks/use-mounted";
 
 export function GiftCard() {
-  const mounted = useMounted();
   const { address, isConnected } = useAccount();
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
@@ -111,20 +109,6 @@ export function GiftCard() {
     }
   };
 
-  if (!mounted || !isConnected) {
-    return (
-      <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 h-[380px] flex flex-col shadow-xl shadow-zinc-200/50">
-        <div className="flex items-center gap-3 mb-4">
-          <span className="px-2 py-0.5 text-xs font-medium bg-rose-100 text-rose-700 rounded">Step 2</span>
-          <h2 className="text-xl font-semibold text-zinc-800">Encrypt & Send Gift</h2>
-        </div>
-        <p className="text-zinc-500 text-center flex-1 flex items-center justify-center">
-          {!mounted ? "Loading..." : "Connect wallet to continue"}
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 flex flex-col h-[380px] shadow-xl shadow-zinc-200/50">
       <div className="flex items-center gap-3 mb-4">
@@ -198,7 +182,7 @@ export function GiftCard() {
         <div className="mt-auto">
           <button
             onClick={handleSend}
-            disabled={isSending || !recipient || !amount || !unlockDate || !unlockTime}
+            disabled={!isConnected || isSending || !recipient || !amount || !unlockDate || !unlockTime}
             className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 disabled:bg-zinc-300 disabled:text-zinc-500 disabled:cursor-not-allowed text-white font-medium transition-colors shadow-sm"
           >
             {isSending ? "Encrypting..." : "Encrypt & Send"}

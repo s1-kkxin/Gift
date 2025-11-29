@@ -24,25 +24,28 @@ export function GiftCard() {
   const { writeContractAsync } = useWriteContract();
 
   const handleSend = async () => {
+    setIsSending(true);
     try {
       if (!instance || !publicClient || !address) {
         toast.error("Please connect wallet and initialize FHE");
+        setIsSending(false);
         return;
       }
       if (!recipient || !recipient.startsWith("0x")) {
         toast.error("Please enter a valid recipient address");
+        setIsSending(false);
         return;
       }
       if (!amount || parseFloat(amount) <= 0) {
         toast.error("Please enter a valid amount");
+        setIsSending(false);
         return;
       }
       if (!unlockDate || !unlockTime) {
         toast.error("Please set unlock date and time");
+        setIsSending(false);
         return;
       }
-
-      setIsSending(true);
 
       // Calculate unlock timestamp
       const unlockDateTime = new Date(`${unlockDate}T${unlockTime}`);

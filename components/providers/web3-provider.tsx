@@ -9,7 +9,6 @@ const queryClient = new QueryClient();
 
 export function Web3Provider({ children }: { children: React.ReactNode }) {
   const initialized = useRef(false);
-  const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
             "--w3m-border-radius-master": "2px",
           },
         });
-        setReady(true);
       } catch (err) {
         console.error("[Web3] AppKit initialization failed:", err);
         setError("Wallet initialization failed");

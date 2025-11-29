@@ -7,8 +7,10 @@ import { bytesToHex } from "viem";
 import { giftTokenConfig } from "@/lib/contracts";
 import { useToast } from "@/components/providers/toast-provider";
 import { useFhe } from "@/components/providers/fhe-provider";
+import { useMounted } from "@/hooks/use-mounted";
 
 export function GiftCard() {
+  const mounted = useMounted();
   const { address, isConnected } = useAccount();
   const [recipient, setRecipient] = useState("");
   const [amount, setAmount] = useState("");
@@ -109,14 +111,16 @@ export function GiftCard() {
     }
   };
 
-  if (!isConnected) {
+  if (!mounted || !isConnected) {
     return (
       <div className="rounded-2xl border border-zinc-200 bg-white/70 backdrop-blur-md p-6 h-[380px] flex flex-col shadow-xl shadow-zinc-200/50">
         <div className="flex items-center gap-3 mb-4">
           <span className="px-2 py-0.5 text-xs font-medium bg-rose-100 text-rose-700 rounded">Step 2</span>
           <h2 className="text-xl font-semibold text-zinc-800">Encrypt & Send Gift</h2>
         </div>
-        <p className="text-zinc-500 text-center flex-1 flex items-center justify-center">Connect wallet to continue</p>
+        <p className="text-zinc-500 text-center flex-1 flex items-center justify-center">
+          {!mounted ? "Loading..." : "Connect wallet to continue"}
+        </p>
       </div>
     );
   }

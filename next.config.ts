@@ -1,7 +1,25 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["pino", "pino-pretty", "thread-stream"],
+  webpack: (config, { isServer }) => {
+    // Ignore problematic modules from pino/thread-stream
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "thread-stream": false,
+      pino: false,
+      "pino-pretty": false,
+    };
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        os: false,
+        worker_threads: false,
+      };
+    }
+    return config;
+  },
   async headers() {
     return [
       {

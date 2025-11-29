@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 盒子主体 -->
+  <rect x="80" y="160" width="352" height="288" rx="24" stroke="#D4AF37" stroke-width="24" stroke-linejoin="round"/>
+  <!-- 盖子 -->
+  <rect x="48" y="96" width="416" height="80" rx="16" stroke="#D4AF37" stroke-width="24" stroke-linejoin="round"/>
+  <!-- 竖丝带 -->
+  <path d="M256 176V448" stroke="#D4AF37" stroke-width="24" stroke-linecap="round"/>
+  <path d="M256 96V176" stroke="#D4AF37" stroke-width="24" stroke-linecap="round"/>
+  <!-- 蝴蝶结 -->
+  <path d="M256 96C256 96 192 16 112 48" stroke="#D4AF37" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 96C256 96 320 16 400 48" stroke="#D4AF37" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

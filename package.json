@@ -9,9 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@reown/appkit": "^1.6.8",
+    "@reown/appkit-adapter-wagmi": "^1.6.8",
+    "@tanstack/react-query": "^5.62.8",
     "next": "16.0.5",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "viem": "^2.21.58",
+    "wagmi": "^2.14.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

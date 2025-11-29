@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       "thread-stream": false,
       pino: false,
       "pino-pretty": false,
+      "@react-native-async-storage/async-storage": false,
     };
     if (!isServer) {
       config.resolve.fallback = {

@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { useAccount, useWriteContract, usePublicClient } from "wagmi";
 import { bytesToHex } from "viem";
 import { giftTokenConfig } from "@/lib/contracts";
@@ -24,7 +25,7 @@ export function GiftCard() {
   const { writeContractAsync } = useWriteContract();
 
   const handleSend = async () => {
-    setIsSending(true);
+    flushSync(() => setIsSending(true));
     try {
       if (!instance || !publicClient || !address) {
         toast.error("Please connect wallet and initialize FHE");

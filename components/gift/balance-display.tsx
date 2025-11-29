@@ -1,7 +1,6 @@
 "use client";
 
 import { useAccount, useReadContract, useBalance } from "wagmi";
-import { formatEther } from "viem";
 import { giftTokenConfig } from "@/lib/contracts";
 
 export function BalanceDisplay() {
@@ -30,7 +29,7 @@ export function BalanceDisplay() {
         <div className="flex justify-between items-center py-3 px-4 rounded-xl bg-white/50 border border-white/60 shadow-sm">
           <span className="text-zinc-600">ETH</span>
           <span className="text-zinc-900 font-medium">
-            {ethBalance ? parseFloat(formatEther(ethBalance.value)).toFixed(4) : "0"} ETH
+            {ethBalance ? parseFloat(ethBalance.formatted).toFixed(4) : "0"} ETH
           </span>
         </div>
         

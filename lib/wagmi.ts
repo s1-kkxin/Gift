@@ -1,23 +1,23 @@
-import { cookieStorage, createStorage } from "wagmi";
+import { createConfig, http } from "wagmi";
 import { sepolia } from "viem/chains";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import type { AppKitNetwork } from "@reown/appkit/networks";
+import { getDefaultConfig } from "connectkit";
 
-export const projectId = process.env.NEXT_PUBLIC_WC_PROJECT_ID || "";
+const sepoliaRpc = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || "https://rpc.ankr.com/eth_sepolia";
 
-if (!projectId) {
-  console.error("[Wagmi] NEXT_PUBLIC_WC_PROJECT_ID is not set");
+export const config = createConfig(
+  getDefaultConfig({
+    chains: [sepolia],
+    transports: {
+      [sepolia.id]: http(sepoliaRpc),
+    },
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID || "",
+    appName: "Gift",
+    appDescription: "FHE Timed Gift System",
+  })
+);
+
+declare module "wagmi" {
+  interface Register {
+    config: typeof config;
+  }
 }
-
-export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [sepolia];
-
-export const wagmiAdapter = new WagmiAdapter({
-  storage: createStorage({
-    storage: cookieStorage,
-  }),
-  ssr: true,
-  projectId,
-  networks,
-});
-
-export const config = wagmiAdapter.wagmiConfig;
